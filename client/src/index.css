@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-900 text-gray-100 font-sans antialiased;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0a0a1a; }
+  ::-webkit-scrollbar-thumb { background: #7c5cfc40; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #7c5cfc80; }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:shadow-lg hover:shadow-accent-purple/10;
+  }
+  .btn-primary {
+    @apply px-6 py-2.5 bg-gradient-to-r from-accent-purple to-accent-blue text-white font-semibold rounded-xl
+           transition-all duration-300 hover:shadow-lg hover:shadow-accent-purple/30 hover:scale-[1.02]
+           active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
+  }
+  .btn-secondary {
+    @apply px-6 py-2.5 bg-white/10 text-white font-semibold rounded-xl border border-white/10
+           transition-all duration-300 hover:bg-white/20 hover:border-white/20
+           active:scale-[0.98];
+  }
+  .btn-danger {
+    @apply px-6 py-2.5 bg-red-500/20 text-red-400 font-semibold rounded-xl border border-red-500/30
+           transition-all duration-300 hover:bg-red-500/30
+           active:scale-[0.98];
+  }
+  .input-field {
+    @apply w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white
+           placeholder-gray-500 focus:outline-none focus:border-accent-purple/50 focus:ring-2 focus:ring-accent-purple/20
+           transition-all duration-300;
+  }
+  .input-field[type="date"] {
+    color-scheme: dark;
+  }
+  .input-field[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+    opacity: 0.7;
+  }
+  .input-field[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+  }
+  .select-field {
+    @apply w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white
+           focus:outline-none focus:border-accent-purple/50 focus:ring-2 focus:ring-accent-purple/20
+           transition-all duration-300 appearance-none cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%237c5cfc'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+  }
+  .data-table {
+    @apply w-full text-left;
+  }
+  .data-table th {
+    @apply px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-400 bg-white/5 border-b border-white/10;
+  }
+  .data-table td {
+    @apply px-4 py-3 text-sm text-gray-300 border-b border-white/5;
+  }
+  .data-table tr {
+    @apply transition-colors duration-200 hover:bg-white/5;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-success {
+    @apply badge bg-emerald-500/20 text-emerald-400;
+  }
+  .badge-warning {
+    @apply badge bg-amber-500/20 text-amber-400;
+  }
+  .badge-info {
+    @apply badge bg-blue-500/20 text-blue-400;
+  }
+  .page-title {
+    @apply text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent;
+  }
+  .section-title {
+    @apply text-xl font-semibold text-white;
+  }
+}
+
+/* React-datepicker custom styles for dark theme */
+.react-datepicker {
+  background-color: #1a1a2e;
+  border-color: #7c5cfc40;
+  color: #fff;
+  z-index: 999999 !important;
+}
+.datepicker-popper {
+  z-index: 999999 !important;
+}
+.react-datepicker-popper {
+  z-index: 999999 !important;
+}
+[data-popper-placement] {
+  z-index: 999999 !important;
+}
+
+/* React-day-picker dark theme styles (v10) */
+.rdp {
+  --rdp-background-color: #1a1a2e;
+  --rdp-cell-background-color: transparent;
+  --rdp-cell-color: #fff;
+  --rdp-cell-hover-background-color: #7c5cfc30;
+  --rdp-cell-selected-color: #fff;
+  --rdp-cell-selected-background-color: #7c5cfc;
+  --rdp-cell-disabled-color: #555;
+  --rdp-cell-outside-color: #555;
+  --rdp-nav-color: #fff;
+  --rdp-nav-hover-background-color: #7c5cfc30;
+  --rdp-nav-disabled-color: #555;
+  --rdp-month-color: #fff;
+  --rdp-weekday-color: #a0a0a0;
+  --rdp-day-color: #fff;
+  --rdp-day-hover-color: #fff;
+  --rdp-day-selected-color: #fff;
+  --rdp-day-disabled-color: #555;
+  --rdp-day-outside-color: #555;
+  --rdp-dropdown-color: #1a1a2e;
+  --rdp-dropdown-border-color: #7c5cfc40;
+  --rdp-accent-color: #7c5cfc;
+  --rdp-outline-color: #7c5cfc;
+  --rdp-outline-focus-color: #7c5cfc;
+  --rdp-outline-offset: 2px;
+  font-size: 14px;
+}
+.rdp-months {
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  padding: 12px;
+  gap: 8px;
+}
+.rdp-month {
+  background-color: #1a1a2e;
+}
+.rdp-head {
+  color: #a0a0a0;
+  margin-bottom: 4px;
+}
+.rdp-head_row {
+  color: #a0a0a0;
+}
+.rdp-head_cell {
+  font-weight: 500;
+  color: #a0a0a0;
+  font-size: 12px;
+  padding: 4px;
+}
+.rdp-button {
+  color: #fff;
+  height: 32px;
+  width: 32px;
+  font-size: 14px;
+}
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  background-color: #7c5cfc30;
+}
+.rdp-day_selected {
+  background-color: #7c5cfc !important;
+  color: #fff !important;
+}
+.rdp-day_outside {
+  color: #555;
+}
+.rdp-day_disabled {
+  color: #555;
+}
+.rdp-nav_button:hover {
+  background-color: #7c5cfc30;
+}
+.rdp-nav_button {
+  width: 28px;
+  height: 28px;
+}
+.react-datepicker__header {
+  background-color: #1a1a2e;
+  border-bottom-color: #7c5cfc40;
+}
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: #fff;
+}
+.react-datepicker__day {
+  color: #a0a0a0;
+}
+.react-datepicker__day:hover {
+  background-color: #7c5cfc30;
+  color: #fff;
+}
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #7c5cfc;
+  color: #fff;
+}
+.react-datepicker__day--outside-month {
+  color: #555;
+}
+.react-datepicker__triangle {
+  border-bottom-color: #1a1a2e;
+}
+.react-datepicker__navigation {
+  top: 10px;
+}
+.react-datepicker__navigation-icon::before {
+  border-color: #fff;
+}

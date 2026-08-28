@@ -1,0 +1,49 @@
+-- CreateTable
+CREATE TABLE "User" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "username" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "role" TEXT NOT NULL DEFAULT 'CLIENTE',
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "Billetera" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "fecha" DATETIME NOT NULL,
+    "medio" TEXT NOT NULL,
+    "monto" REAL NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "Efectivo" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "fecha" DATETIME NOT NULL,
+    "medio" TEXT NOT NULL,
+    "monto" REAL NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "Tarjeta" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "fecha" DATETIME NOT NULL,
+    "medio" TEXT NOT NULL,
+    "monto" REAL NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "Compra" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "fecha" DATETIME NOT NULL,
+    "medio" TEXT NOT NULL,
+    "monto" REAL NOT NULL,
+    "cuit" TEXT NOT NULL,
+    "tipoFactura" TEXT NOT NULL,
+    "registroMovimiento" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
