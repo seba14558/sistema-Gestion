@@ -45,11 +45,13 @@
     color-scheme: dark;
   }
   .input-field[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
+    filter: invert(1) brightness(1.2);
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 1;
+    padding: 4px;
   }
   .input-field[type="date"]::-webkit-calendar-picker-indicator:hover {
+    filter: invert(1) brightness(1.4);
     opacity: 1;
   }
   .select-field {
@@ -182,9 +184,36 @@
 .rdp-nav_button:hover {
   background-color: #7c5cfc30;
 }
+.rdp-nav {
+  color: #fff !important;
+}
 .rdp-nav_button {
   width: 28px;
   height: 28px;
+  color: #fff !important;
+  background: transparent !important;
+  filter: invert(1) brightness(1.5);
+}
+.rdp-nav_button svg {
+  color: #fff !important;
+  stroke: #fff !important;
+  fill: #fff !important;
+}
+.rdp-nav_button svg path {
+  stroke: #fff !important;
+  fill: #fff !important;
+}
+.rdp-nav_button svg polyline,
+.rdp-nav_button svg line,
+.rdp-nav_button svg circle {
+  stroke: #fff !important;
+  fill: #fff !important;
+}
+/* Force all SVG elements in nav buttons to be white */
+.rdp-nav_button * {
+  color: #fff !important;
+  stroke: #fff !important;
+  fill: #fff !important;
 }
 .react-datepicker__header {
   background-color: #1a1a2e;
