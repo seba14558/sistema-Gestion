@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import * as api from '../services/api';
 import { DataTable } from '../components/ui/DataTable';
 import { formatDate, type Compra } from '../types';
+import { DayPicker } from 'react-day-picker';
+import { es } from 'date-fns/locale';
 
 export default function Compras() {
   const { isAdmin } = useAuth();
@@ -13,6 +16,10 @@ export default function Compras() {
 
   // Filters
   const [filters, setFilters] = useState({ fechaDesde: '', fechaHasta: '', medio: '', tipoFactura: '' });
+  
+  // Date picker state
+  const [showDesdePicker, setShowDesdePicker] = useState(false);
+  const [showHastaPicker, setShowHastaPicker] = useState(false);
   
   // Pagination
   const [page, setPage] = useState(1);
@@ -48,6 +55,13 @@ export default function Compras() {
   const handleFilter = () => {
     setPage(1);
     fetchCompras(1, filters);
+  };
+
+  const clearFilter = () => {
+    const emptyFilters = { fechaDesde: '', fechaHasta: '', medio: '', tipoFactura: '' };
+    setFilters(emptyFilters);
+    setPage(1);
+    fetchCompras(1, emptyFilters);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -126,13 +140,77 @@ export default function Compras() {
 
       <div className="glass-card p-6 rounded-xl border border-white/10 shadow-xl">
         <div className="flex flex-wrap gap-4 mb-6 items-end">
-          <div>
+          <div className="relative">
             <label className="block text-sm text-text-secondary font-medium mb-1">Desde</label>
-            <input type="date" className="input-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm" value={filters.fechaDesde} onChange={e => setFilters({...filters, fechaDesde: e.target.value})} />
+            <input 
+              type="text" 
+              className="input-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm cursor-pointer w-40" 
+              value={filters.fechaDesde} 
+              onClick={() => setShowDesdePicker(!showDesdePicker)}
+              readOnly
+              placeholder="dd/mm/aaaa"
+            />
+            {showDesdePicker && (
+              <div className="absolute top-full left-0 z-50 mt-2">
+                <div className="glass-card p-4 rounded-xl border border-white/10 shadow-xl">
+                  <DayPicker
+                    locale={es}
+                    mode="single"
+                    selected={filters.fechaDesde ? new Date(filters.fechaDesde) : undefined}
+                    onSelect={(date) => {
+                      if (date) {
+                        const formattedDate = date.toISOString().split('T')[0];
+                        setFilters({...filters, fechaDesde: formattedDate});
+                      }
+                      setShowDesdePicker(false);
+                    }}
+                    className="rdp"
+                    components={{
+                      Chevron: ({ orientation }) => 
+                        orientation === 'left' 
+                          ? <ChevronLeft className="w-4 h-4 text-white" />
+                          : <ChevronRight className="w-4 h-4 text-white" />
+                    }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
-          <div>
+          <div className="relative">
             <label className="block text-sm text-text-secondary font-medium mb-1">Hasta</label>
-            <input type="date" className="input-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm" value={filters.fechaHasta} onChange={e => setFilters({...filters, fechaHasta: e.target.value})} />
+            <input 
+              type="text" 
+              className="input-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm cursor-pointer w-40" 
+              value={filters.fechaHasta} 
+              onClick={() => setShowHastaPicker(!showHastaPicker)}
+              readOnly
+              placeholder="dd/mm/aaaa"
+            />
+            {showHastaPicker && (
+              <div className="absolute top-full left-0 z-50 mt-2">
+                <div className="glass-card p-4 rounded-xl border border-white/10 shadow-xl">
+                  <DayPicker
+                    locale={es}
+                    mode="single"
+                    selected={filters.fechaHasta ? new Date(filters.fechaHasta) : undefined}
+                    onSelect={(date) => {
+                      if (date) {
+                        const formattedDate = date.toISOString().split('T')[0];
+                        setFilters({...filters, fechaHasta: formattedDate});
+                      }
+                      setShowHastaPicker(false);
+                    }}
+                    className="rdp"
+                    components={{
+                      Chevron: ({ orientation }) => 
+                        orientation === 'left' 
+                          ? <ChevronLeft className="w-4 h-4 text-white" />
+                          : <ChevronRight className="w-4 h-4 text-white" />
+                    }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
           <div>
             <label className="block text-sm text-text-secondary font-medium mb-1">Medio</label>
@@ -147,6 +225,7 @@ export default function Compras() {
             </select>
           </div>
           <button onClick={handleFilter} className="btn-secondary bg-dark-800 border border-white/10 px-5 py-2.5 rounded-xl hover:bg-white/10 transition-colors font-medium">Filtrar</button>
+          <button onClick={clearFilter} className="btn-secondary bg-dark-800 border border-white/10 px-5 py-2.5 rounded-xl hover:bg-white/10 transition-colors font-medium">Limpiar</button>
         </div>
 
         <DataTable

@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
 
     const medioVal = (medio as string || '').trim();
     if (medioVal !== '' && medioVal !== 'Todos') {
-      where.medio = { contains: medioVal };
+      where.medio = medioVal;
     }
 
     const facturaVal = (tipoFactura as string || '').trim();
