@@ -78,7 +78,8 @@ router.get('/resumen', async (req, res) => {
       totalCompras,
       comprasFacturadas,
       comprasSinFactura,
-      chartDataMensual,
+      ventasPorMes, // For Informes page
+      chartDataMensual, // For Dashboard
       distribucionPagos
     };
 
