@@ -56,6 +56,20 @@ router.get('/resumen', async (req, res) => {
 
     const ventasPorMes = Object.values(monthlyData).sort((a, b) => a.mes.localeCompare(b.mes));
 
+    // Format data for charts
+    const chartDataMensual = ventasPorMes.map(item => ({
+      name: item.mes,
+      tarjetas: item.tarjetas,
+      billeteras: item.billeteras,
+      efectivo: item.efectivo
+    }));
+
+    const distribucionPagos = [
+      { name: 'Tarjetas', value: ventasTarjetas },
+      { name: 'Billeteras', value: ventasBilleteras },
+      { name: 'Efectivo', value: ventasEfectivo }
+    ].filter(item => item.value > 0);
+
     const result: any = {
       ventasTotales,
       ventasEfectivo,
@@ -64,7 +78,8 @@ router.get('/resumen', async (req, res) => {
       totalCompras,
       comprasFacturadas,
       comprasSinFactura,
-      ventasPorMes
+      chartDataMensual,
+      distribucionPagos
     };
 
     if (req.user?.role === 'ADMIN') {
