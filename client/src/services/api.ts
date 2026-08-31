@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AuthResponse, User, VentasResumen, Compra, PaginatedResponse, InformeResumen } from '../types';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://localhost:3001/api',
 });
 
 api.interceptors.request.use((config) => {
@@ -89,6 +89,21 @@ export const exportDB = async (tabla: string) => {
 
 export const getInformeResumen = async (): Promise<InformeResumen> => {
   const response = await api.get<InformeResumen>('/informes/resumen');
+  return response.data;
+};
+
+export const createUser = async (username: string, password: string, role: string) => {
+  const response = await api.post('/auth/users', { username, password, role });
+  return response.data;
+};
+
+export const getUsers = async () => {
+  const response = await api.get('/auth/users');
+  return response.data;
+};
+
+export const deleteUser = async (id: number) => {
+  const response = await api.delete(`/auth/users/${id}`);
   return response.data;
 };
 

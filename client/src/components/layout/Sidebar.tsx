@@ -6,6 +6,7 @@ import {
   Package, 
   Database, 
   BarChart3, 
+  Users as UsersIcon,
   LogOut, 
   X
 } from 'lucide-react';
@@ -23,6 +24,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
     { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { to: '/ventas', label: 'Ventas', icon: ShoppingCart },
     { to: '/compras', label: 'Compras', icon: Package },
+    { to: '/users', label: 'Usuarios', icon: UsersIcon, requireAdmin: true },
     { to: '/database', label: 'Base de Datos', icon: Database, requireAdmin: true },
     { to: '/informes', label: 'Informes', icon: BarChart3, requireAdmin: true },
   ];

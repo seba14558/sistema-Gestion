@@ -27,10 +27,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (token) {
         try {
           const userData = await api.getMe();
-          console.log('getMe response:', userData);
+          
           setUser(userData);
         } catch (error) {
-          console.error('Error fetching user info', error);
+          
           localStorage.removeItem('token');
           setToken(null);
           setUser(null);
@@ -47,8 +47,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.setItem('token', response.token);
     setToken(response.token);
     setUser(response.user);
-    console.log('Login response:', response);
-    console.log('User set:', response.user);
+    
   };
 
   const logout = () => {
