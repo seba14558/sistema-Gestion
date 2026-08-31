@@ -90,22 +90,22 @@ export default function Compras() {
   ];
 
   return (
-    <div className="page-container p-6 animate-fade-in text-text-primary">
-      <h1 className="page-title text-3xl font-bold bg-gradient-to-r from-accent-purple to-accent-blue bg-clip-text text-transparent mb-8">Registro de Compras</h1>
+    <div className="page-container p-4 sm:p-6 animate-fade-in text-text-primary">
+      <h1 className="page-title text-2xl sm:text-3xl font-bold bg-gradient-to-r from-accent-purple to-accent-blue bg-clip-text text-transparent mb-6 sm:mb-8">Registro de Compras</h1>
 
       {isAdmin && (
-        <div className="glass-card p-6 rounded-xl mb-8 border border-white/10 shadow-xl">
-          <h2 className="text-xl font-semibold mb-4">Nueva Compra</h2>
+        <div className="glass-card p-4 sm:p-6 rounded-xl mb-6 sm:mb-8 border border-white/10 shadow-xl">
+          <h2 className="text-lg sm:text-xl font-semibold mb-4">Nueva Compra</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-1">
                 <label className="text-sm text-text-secondary font-medium">Fecha</label>
-                <input 
-                  type="date" 
-                  required 
-                  className="input-field w-full p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm focus:border-accent-purple focus:ring-2 focus:ring-accent-purple/20" 
-                  value={form.fecha} 
-                  onChange={e => setForm({...form, fecha: e.target.value})} 
+                <input
+                  type="date"
+                  required
+                  className="input-field w-full p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm focus:border-accent-purple focus:ring-2 focus:ring-accent-purple/20"
+                  value={form.fecha}
+                  onChange={e => setForm({...form, fecha: e.target.value})}
                 />
               </div>
               <div className="space-y-1">
@@ -119,7 +119,7 @@ export default function Compras() {
                 <input type="number" required min="0" step="0.01" className="input-field w-full p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm" placeholder="$ 0,00" value={form.monto} onChange={e => setForm({...form, monto: e.target.value})} />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
                 <label className="text-sm text-text-secondary font-medium">CUIT</label>
                 <input type="text" required className="input-field w-full p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm" placeholder="20-12345678-9" value={form.cuit} onChange={e => setForm({...form, cuit: e.target.value})} />
@@ -132,20 +132,20 @@ export default function Compras() {
               </div>
             </div>
             <div className="flex justify-end">
-              <button type="submit" className="btn-primary bg-gradient-to-r from-accent-purple to-accent-blue text-white px-6 py-2.5 rounded-xl font-semibold hover:shadow-lg transition-all">Registrar Compra</button>
+              <button type="submit" className="btn-primary bg-gradient-to-r from-accent-purple to-accent-blue text-white px-6 py-2.5 rounded-xl font-semibold hover:shadow-lg transition-all w-full sm:w-auto">Registrar Compra</button>
             </div>
           </form>
         </div>
       )}
 
-      <div className="glass-card p-6 rounded-xl border border-white/10 shadow-xl">
-        <div className="flex flex-wrap gap-4 mb-6 items-end">
+      <div className="glass-card p-4 sm:p-6 rounded-xl border border-white/10 shadow-xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6 items-end">
           <div className="relative">
             <label className="block text-sm text-text-secondary font-medium mb-1">Desde</label>
-            <input 
-              type="text" 
-              className="input-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm cursor-pointer w-40" 
-              value={filters.fechaDesde} 
+            <input
+              type="text"
+              className="input-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm cursor-pointer w-full"
+              value={filters.fechaDesde}
               onClick={() => setShowDesdePicker(!showDesdePicker)}
               readOnly
               placeholder="dd/mm/aaaa"
@@ -166,8 +166,8 @@ export default function Compras() {
                     }}
                     className="rdp"
                     components={{
-                      Chevron: ({ orientation }) => 
-                        orientation === 'left' 
+                      Chevron: ({ orientation }) =>
+                        orientation === 'left'
                           ? <ChevronLeft className="w-4 h-4 text-white" />
                           : <ChevronRight className="w-4 h-4 text-white" />
                     }}
@@ -178,10 +178,10 @@ export default function Compras() {
           </div>
           <div className="relative">
             <label className="block text-sm text-text-secondary font-medium mb-1">Hasta</label>
-            <input 
-              type="text" 
-              className="input-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm cursor-pointer w-40" 
-              value={filters.fechaHasta} 
+            <input
+              type="text"
+              className="input-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm cursor-pointer w-full"
+              value={filters.fechaHasta}
               onClick={() => setShowHastaPicker(!showHastaPicker)}
               readOnly
               placeholder="dd/mm/aaaa"
@@ -202,8 +202,8 @@ export default function Compras() {
                     }}
                     className="rdp"
                     components={{
-                      Chevron: ({ orientation }) => 
-                        orientation === 'left' 
+                      Chevron: ({ orientation }) =>
+                        orientation === 'left'
                           ? <ChevronLeft className="w-4 h-4 text-white" />
                           : <ChevronRight className="w-4 h-4 text-white" />
                     }}
@@ -214,18 +214,18 @@ export default function Compras() {
           </div>
           <div>
             <label className="block text-sm text-text-secondary font-medium mb-1">Medio</label>
-            <select className="select-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm min-w-[150px]" value={filters.medio} onChange={e => setFilters({...filters, medio: e.target.value})}>
+            <select className="select-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm w-full" value={filters.medio} onChange={e => setFilters({...filters, medio: e.target.value})}>
               <option value="">Todos</option><option>Transferencia</option><option>Efectivo</option>
             </select>
           </div>
           <div>
             <label className="block text-sm text-text-secondary font-medium mb-1">Factura</label>
-            <select className="select-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm" value={filters.tipoFactura} onChange={e => setFilters({...filters, tipoFactura: e.target.value})}>
+            <select className="select-field p-2.5 bg-dark-800 border border-white/10 rounded-xl text-text-primary text-sm w-full" value={filters.tipoFactura} onChange={e => setFilters({...filters, tipoFactura: e.target.value})}>
               <option value="">Todas</option><option>A</option><option>B</option><option>C</option>
             </select>
           </div>
-          <button onClick={handleFilter} className="btn-secondary bg-dark-800 border border-white/10 px-5 py-2.5 rounded-xl hover:bg-white/10 transition-colors font-medium">Filtrar</button>
-          <button onClick={clearFilter} className="btn-secondary bg-dark-800 border border-white/10 px-5 py-2.5 rounded-xl hover:bg-white/10 transition-colors font-medium">Limpiar</button>
+          <button onClick={handleFilter} className="btn-secondary bg-dark-800 border border-white/10 px-5 py-2.5 rounded-xl hover:bg-white/10 transition-colors font-medium w-full sm:w-auto">Filtrar</button>
+          <button onClick={clearFilter} className="btn-secondary bg-dark-800 border border-white/10 px-5 py-2.5 rounded-xl hover:bg-white/10 transition-colors font-medium w-full sm:w-auto">Limpiar</button>
         </div>
 
         <DataTable

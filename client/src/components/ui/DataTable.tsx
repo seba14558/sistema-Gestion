@@ -53,27 +53,27 @@ export function DataTable<T extends { id?: number | string }>({
 
   return (
     <div className="overflow-x-auto glass-card">
-      <table className="data-table">
+      <table className="data-table min-w-[600px]">
         <thead>
           <tr>
             {columns.map((col, idx) => (
-              <th key={idx}>{col.label}</th>
+              <th key={idx} className="px-4 sm:px-6 py-4 text-xs sm:text-sm font-semibold">{col.label}</th>
             ))}
-            {showActions && <th className="text-right">Acciones</th>}
+            {showActions && <th className="px-4 sm:px-6 py-4 text-right text-xs sm:text-sm font-semibold">Acciones</th>}
           </tr>
         </thead>
         <tbody>
           {data.map((item, rowIdx) => (
             <tr key={item.id || rowIdx}>
               {columns.map((col, colIdx) => (
-                <td key={colIdx}>
+                <td key={colIdx} className="px-4 sm:px-6 py-4 text-sm">
                   {col.render ? col.render(item) : (item as any)[col.key]}
                 </td>
               ))}
               {showActions && (
-                <td className="text-right whitespace-nowrap">
+                <td className="px-4 sm:px-6 py-4 text-right whitespace-nowrap">
                   {onEdit && (
-                    <button 
+                    <button
                       onClick={() => onEdit(item)}
                       className="p-2 text-accent-blue hover:bg-accent-blue/10 rounded-lg transition-colors mr-2"
                       title="Editar"
@@ -82,7 +82,7 @@ export function DataTable<T extends { id?: number | string }>({
                     </button>
                   )}
                   {onDelete && (
-                    <button 
+                    <button
                       onClick={() => onDelete(item)}
                       className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
                       title="Eliminar"
@@ -98,8 +98,8 @@ export function DataTable<T extends { id?: number | string }>({
       </table>
 
       {pagination && pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between px-6 py-4 border-t border-white/10">
-          <span className="text-sm text-gray-400">
+        <div className="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-4 border-t border-white/10 gap-4">
+          <span className="text-xs sm:text-sm text-gray-400">
             Página {pagination.page} de {pagination.totalPages}
           </span>
           <div className="flex space-x-2">
