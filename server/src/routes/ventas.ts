@@ -10,8 +10,9 @@ router.use(authenticateToken);
 router.post('/tarjeta', requireAdmin, async (req, res) => {
   try {
     const { fecha, medio, monto } = req.body;
+    const [year, month, day] = fecha.split('-').map(Number);
     const record = await prisma.tarjeta.create({
-      data: { fecha: new Date(fecha), medio, monto: Number(monto) }
+      data: { fecha: new Date(year, month - 1, day), medio, monto: Number(monto) }
     });
     res.json(record);
   } catch (error) {
@@ -22,8 +23,9 @@ router.post('/tarjeta', requireAdmin, async (req, res) => {
 router.post('/billetera', requireAdmin, async (req, res) => {
   try {
     const { fecha, medio, monto } = req.body;
+    const [year, month, day] = fecha.split('-').map(Number);
     const record = await prisma.billetera.create({
-      data: { fecha: new Date(fecha), medio, monto: Number(monto) }
+      data: { fecha: new Date(year, month - 1, day), medio, monto: Number(monto) }
     });
     res.json(record);
   } catch (error) {
@@ -34,8 +36,9 @@ router.post('/billetera', requireAdmin, async (req, res) => {
 router.post('/efectivo', requireAdmin, async (req, res) => {
   try {
     const { fecha, medio, monto } = req.body;
+    const [year, month, day] = fecha.split('-').map(Number);
     const record = await prisma.efectivo.create({
-      data: { fecha: new Date(fecha), medio, monto: Number(monto) }
+      data: { fecha: new Date(year, month - 1, day), medio, monto: Number(monto) }
     });
     res.json(record);
   } catch (error) {

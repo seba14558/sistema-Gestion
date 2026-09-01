@@ -3,6 +3,7 @@ import { CreditCard, Smartphone, Banknote } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import * as api from '../services/api';
 import type { VentasResumen } from '../types';
+import { AlertDialog } from '../components/ui/AlertDialog';
 
 export default function Ventas() {
   const { isAdmin } = useAuth();
@@ -16,6 +17,8 @@ export default function Ventas() {
   const [formTarjeta, setFormTarjeta] = useState({ fecha: today, medio: 'VISA CREDITO', monto: '' });
   const [formBilletera, setFormBilletera] = useState({ fecha: today, medio: 'Mercado Pago', monto: '' });
   const [formEfectivo, setFormEfectivo] = useState({ fecha: today, medio: 'Efectivo', monto: '' });
+
+  const [alertDialog, setAlertDialog] = useState({ isOpen: false, title: '', message: '', type: 'success' as 'success' | 'error' });
 
   const fetchResumen = async () => {
     setLoading(true);
@@ -43,13 +46,13 @@ export default function Ventas() {
       if (tipo === 'billetera') await api.registrarBilletera(formattedData);
       if (tipo === 'efectivo') await api.registrarEfectivo(formattedData);
       
-      alert('Venta registrada exitosamente');
+      setAlertDialog({ isOpen: true, title: 'Venta Registrada', message: 'La venta se ha registrado exitosamente', type: 'success' });
       fetchResumen();
       setFormTarjeta({ fecha: today, medio: 'VISA CREDITO', monto: '' });
       setFormBilletera({ fecha: today, medio: 'Mercado Pago', monto: '' });
       setFormEfectivo({ fecha: today, medio: 'Efectivo', monto: '' });
     } catch (error) {
-      alert('Error al registrar la venta');
+      setAlertDialog({ isOpen: true, title: 'Error', message: 'Error al registrar la venta', type: 'error' });
     }
   };
 
@@ -207,6 +210,14 @@ export default function Ventas() {
           </div>
         </div>
       </div>
+
+      <AlertDialog
+        isOpen={alertDialog.isOpen}
+        onClose={() => setAlertDialog({ ...alertDialog, isOpen: false })}
+        title={alertDialog.title}
+        message={alertDialog.message}
+        type={alertDialog.type}
+      />
     </div>
   );
 }
