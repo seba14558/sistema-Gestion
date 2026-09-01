@@ -42,7 +42,7 @@
            transition-all duration-300;
   }
   .input-field[type="date"] {
-    color-scheme: dark;
+    color-scheme: light;
   }
   .input-field[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1) brightness(1.2);
