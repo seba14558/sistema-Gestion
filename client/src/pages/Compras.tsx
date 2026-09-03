@@ -11,7 +11,17 @@ export default function Compras() {
   const { isAdmin } = useAuth();
   const [compras, setCompras] = useState<Compra[]>([]);
   const [loading, setLoading] = useState(true);
-  
+  const [dialog, setDialog] = useState<{
+  open: boolean;
+  type: 'success' | 'error';
+  title: string;
+  message: string;
+}>({
+  open: false,
+  type: 'success',
+  title: '',
+  message: ''
+});
   const today = new Date().toISOString().split('T')[0];
 
   // Filters
@@ -64,17 +74,43 @@ export default function Compras() {
     fetchCompras(1, emptyFilters);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await api.crearCompra({ ...form, monto: Number(form.monto) });
-      alert('Compra registrada exitosamente');
-      setForm({ fecha: today, medio: 'Transferencia', monto: '', cuit: '', tipoFactura: 'A' });
-      fetchCompras(page, filters);
-    } catch (error) {
-      alert('Error al registrar compra');
-    }
-  };
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    await api.crearCompra({
+      ...form,
+      monto: Number(form.monto)
+    });
+
+    setDialog({
+      open: true,
+      type: 'success',
+      title: 'Compra registrada',
+      message: 'La compra se registró correctamente.'
+    });
+
+    setForm({
+      fecha: today,
+      medio: 'Transferencia',
+      monto: '',
+      cuit: '',
+      tipoFactura: 'A'
+    });
+
+    fetchCompras(page, filters);
+
+  } catch (error) {
+    console.error(error);
+
+    setDialog({
+      open: true,
+      type: 'error',
+      title: 'No se pudo registrar',
+      message: 'Ocurrió un error al registrar la compra. Por favor, intentá nuevamente.'
+    });
+  }
+};
 
   const columns = [
     { key: 'fecha', label: 'Fecha', render: (row: Compra) => formatDate(row.fecha) },
@@ -90,7 +126,88 @@ export default function Compras() {
   ];
 
   return (
+    
     <div className="page-container p-4 sm:p-6 animate-fade-in text-text-primary">
+      {dialog.open && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div className="w-full max-w-md glass-card rounded-2xl border border-white/10 shadow-2xl p-6 animate-fade-in">
+
+      <div className="flex items-start gap-4">
+
+        {/* Icono */}
+        <div
+          className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${
+            dialog.type === 'success'
+              ? 'bg-emerald-500/20'
+              : 'bg-red-500/20'
+          }`}
+        >
+          {dialog.type === 'success' ? (
+            <svg
+              className="w-6 h-6 text-emerald-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="w-6 h-6 text-red-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          )}
+        </div>
+
+        {/* Contenido */}
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-text-primary">
+            {dialog.title}
+          </h3>
+
+          <p className="mt-2 text-sm text-text-secondary">
+            {dialog.message}
+          </p>
+        </div>
+
+      </div>
+
+      {/* Botón */}
+      <div className="flex justify-end mt-6">
+        <button
+          onClick={() =>
+            setDialog({
+              ...dialog,
+              open: false
+            })
+          }
+          className={`px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all ${
+            dialog.type === 'success'
+              ? 'bg-gradient-to-r from-accent-purple to-accent-blue hover:shadow-lg'
+              : 'bg-red-600 hover:bg-red-700'
+          }`}
+        >
+          Aceptar
+        </button>
+      </div>
+
+    </div>
+  </div>
+)}
       <h1 className="page-title text-2xl sm:text-3xl font-bold bg-gradient-to-r from-accent-purple to-accent-blue bg-clip-text text-transparent mb-6 sm:mb-8">Registro de Compras</h1>
 
       {isAdmin && (
