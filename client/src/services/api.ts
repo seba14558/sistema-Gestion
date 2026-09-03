@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AuthResponse, User, VentasResumen, Compra, PaginatedResponse, InformeResumen } from '../types';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001/api',
+  baseURL: '/api',
 });
 
 api.interceptors.request.use((config) => {

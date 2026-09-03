@@ -12,6 +12,21 @@
   ::-webkit-scrollbar-track { background: #0a0a1a; }
   ::-webkit-scrollbar-thumb { background: #7c5cfc40; border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: #7c5cfc80; }
+
+  /* Hide Edge/IE native password reveal button */
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+    display: none;
+  }
+
+  /* Prevent white autofill background in Chrome/Edge */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff !important;
+    -webkit-box-shadow: 0 0 0px 1000px #0f0f2a inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
 }
 
 @layer components {
